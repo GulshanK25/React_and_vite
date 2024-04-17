@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
                 $lookup: {
                     from: "employees",
                     localField: "emp_id",
-                    foreignField: "employee_id",
+                    foreignField: "emp_id",
                     as: "employee"
                 }
             },
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
                 $lookup: {
                     from: "projects",
                     localField: "project_code",
-                    foreignField: "project_code",
+                    foreignField: "project_code", 
                     as: "project"
                 }
             },
@@ -32,8 +32,8 @@ router.get('/', async (req, res) => {
             {
                 $project: {
                     "_id": 0,
-                    "employee_id": "$employee.employee_id",
-                    "employee_name": "$employee.full_name",
+                    "employee_id": "$employee.emp_id", // Adjusted to match the field name in the schema
+                    "employee_name": "$employee.emp_fullname", // Adjusted to match the field name in the schema
                     "project_name": "$project.project_name",
                     "start_date": "$start_date"
                 }
