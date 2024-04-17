@@ -1,6 +1,6 @@
-import { connections } from "mongoose";
+
 import React,{useState,useEffect} from "react";
-import { employee } from "../../public/schemaemploye";
+
 
 const empdata = () => {
     const [employeeData, setEmployeeData] = useState([]);
