@@ -1,9 +1,49 @@
 import express from "express";
-
-
+import { employee, Project, Projectassignment } from "../public/schemaemploye.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
 
-}); 
+router.get('/', async (req, res) => {
+    try {
+        const data = await Projectassignment.aggregate([
+            {
+                $lookup: {
+                    from: "employees",
+                    localField: "emp_id",
+                    foreignField: "employee_id",
+                    as: "employee"
+                }
+            },
+            {
+                $unwind: "$employee"
+            },
+            {
+                $lookup: {
+                    from: "projects",
+                    localField: "project_code",
+                    foreignField: "project_code",
+                    as: "project"
+                }
+            },
+            {
+                $unwind: "$project"
+            },
+            {
+                $project: {
+                    "_id": 0,
+                    "employee_id": "$employee.employee_id",
+                    "employee_name": "$employee.full_name",
+                    "project_name": "$project.project_name",
+                    "start_date": "$start_date"
+                }
+            }
+        ]);
+
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+export default router;

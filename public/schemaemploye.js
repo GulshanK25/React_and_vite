@@ -23,4 +23,4 @@ const projectschema = new Schema ({
 const Project = model("Project", projectschema);
 const employee = model("Employee",employeschema);
 const Projectassignment = model('ProjectAssignment', Projectassignemtschema);
-export default {employee,Project, Projectassignment};
+export  {employee,Project, Projectassignment};
