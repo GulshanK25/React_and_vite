@@ -1,54 +1,58 @@
+import React, { useState, useEffect } from "react";
 
-import React,{useState,useEffect} from "react";
-
-
-const empdata = () => {
+const Empdata = () => {
     const [employeeData, setEmployeeData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/api'); 
+                const response = await fetch('http://localhost:5000/api');
+                console.log('Response status:', response.status);
+                const contentType = response.headers.get('content-type');
+                console.log('Content-Type:', contentType);
+                
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
-                const daata = await response.json();
-                setEmployeeData(daata);
+    
+                const data = await response.json();
+                console.log('Data:', data);
+                setEmployeeData(data);
             } catch (error) {
-                console.error(error);
+                console.error('Fetch error:', error);
+                // Handle the error, e.g., display an error message to the user
             }
         };
-
+    
         fetchData();
     }, []);
-
+    
 
     return (
         <div>
-            <h2>
-                table displayed 
-            </h2>
+            <h2>Table Displayed</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>PROJECTCODE</th>
-                        <th>START DATE</th>
+                        <th>ID </th>
+                        <th>NAME </th>
+                        <th>PROJECTCODE </th>
+                        <th>START DATE </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((emp)=> (
-                        <tr key = {emp.emp_id}>
-                            <td>{emp.emp_id}</td>
-                            <td>{emp.emp_name}</td>
+                    {employeeData.map((emp) => (
+                        <tr key={emp.employee_id}>
+                            <td>{emp.employee_id}</td>
+                            <td>{emp.employee_name}</td>
                             <td>{emp.project_name}</td>
                             <td>{emp.start_date}</td>
                         </tr>
-                    ) )}
+                    ))}
                 </tbody>
             </table>
         </div>
-    )
-}
-export default empdata;
+    );
+};
+
+export default Empdata;
