@@ -32,8 +32,8 @@ router.get('/', async (req, res) => {
             {
                 $project: {
                     "_id": 0,
-                    "employee_id": "$employee.emp_id", // Adjusted to match the field name in the schema
-                    "employee_name": "$employee.emp_fullname", // Adjusted to match the field name in the schema
+                    "employee_id": "$employee.emp_id", 
+                    "employee_name": "$employee.emp_fullname", 
                     "project_name": "$project.project_name",
                     "start_date": "$start_date"
                 }
