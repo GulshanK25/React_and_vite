@@ -1,34 +1,49 @@
+
 import React, { useState, useEffect } from "react";
 
 const Empdata = () => {
     const [employeeData, setEmployeeData] = useState([]);
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch('http://localhost:5000/api');
-                console.log('Response status:', response.status);
-                const contentType = response.headers.get('content-type');
-                console.log('Content-Type:', contentType);
-                
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
-    
                 const data = await response.json();
-                console.log('Data:', data);
                 setEmployeeData(data);
             } catch (error) {
                 console.error('Fetch error:', error);
-                
             }
         };
-    
+
         fetchData();
-        const interval = setInterval(fetchData,10000);
+        const interval = setInterval(fetchData, 10000);
         return () => clearInterval(interval);
     }, []);
-    
+
+    const handleSort = (key) => {
+        let direction = 'asc';
+        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const sortedData = employeeData.sort((a, b) => {
+        if (sortConfig.key !== null) {
+            const key = sortConfig.key;
+            if (a[key] < b[key]) {
+                return sortConfig.direction === 'asc' ? -1 : 1;
+            }
+            if (a[key] > b[key]) {
+                return sortConfig.direction === 'asc' ? 1 : -1;
+            }
+        }
+        return 0;
+    });
 
     return (
         <div>
@@ -36,14 +51,14 @@ const Empdata = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>ID </th>
-                        <th>NAME </th>
-                        <th>PROJECTCODE </th>
-                        <th>START DATE </th>
+                        <th onClick={() => handleSort('employee_id')}>ID</th>
+                        <th onClick={() => handleSort('employee_name')}>NAME</th>
+                        <th onClick={() => handleSort('project_name')}>PROJECT CODE</th>
+                        <th onClick={() => handleSort('start_date')}>START DATE</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {employeeData.map((emp) => (
+                    {sortedData.map((emp) => (
                         <tr key={emp.employee_id}>
                             <td>{emp.employee_id}</td>
                             <td>{emp.employee_name}</td>
