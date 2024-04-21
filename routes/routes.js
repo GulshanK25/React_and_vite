@@ -46,4 +46,28 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+router.post('/employees', async (req, res) => {
+    try{
+        const {emp_id,emp_fullname,emp_email,emp_hashed_password}= req.body;
+        if (!emp_id) {
+            return res.status(400).json({ message: "Please enter Employee ID" });
+        }
+        const createemp = await employee.create({
+            emp_id,
+            emp_fullname,
+            emp_email,
+            emp_hashed_password
+            });
+        res.status(201).json({
+            message: "Employee created successfully",
+            employee: createemp.toObject({ getters: true, versionKey: false })
+        })
+    }
+    catch(error){
+        res.status(500).json({ message: error.message });
+}
+}
+);
+
 export default router;
