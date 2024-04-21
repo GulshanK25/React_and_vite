@@ -47,6 +47,27 @@ router.get('/', async (req, res) => {
 });
 
 
+router.post('/project', async (req, res) => {
+    try{
+        const {project_code,project_name,project_description}= req.body;
+        if (!project_code) {
+            return res.status(400).json({ message: "Please enter project code" });
+        }
+        const createproj = await Project.create({
+            project_code,
+            project_name,
+            project_description
+            });
+        res.status(201).json({
+            message: "Project Added",
+            Project: createproj.toObject({ getters: true, versionKey: false })
+        })
+    }
+    catch(error){
+        res.status(500).json({ message: error.message });
+}
+}
+);
 router.post('/employees', async (req, res) => {
     try{
         const {emp_id,emp_fullname,emp_email,emp_hashed_password}= req.body;
@@ -69,5 +90,7 @@ router.post('/employees', async (req, res) => {
 }
 }
 );
+
+
 
 export default router;
