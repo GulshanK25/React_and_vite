@@ -90,7 +90,31 @@ router.post('/employees', async (req, res) => {
 }
 }
 );
+router.post('/project_assignments', async (req, res) => {
+    try {
+        const existingEmployee = await employee.findOne({ emp_id: req.body.emp_id });
+        if (!existingEmployee) {
+            return res.status(400).json({ message: "Employee not found" });
+        }
 
+        const existingProject = await Project.findOne({ project_code: req.body.project_code });
+        if (!existingProject) {
+            return res.status(400).json({ message: "Project not found" });
+        }
+
+        const newAssignment = new Projectassignment({
+            emp_id: existingEmployee.emp_id, 
+            project_code: existingProject.project_code,
+            start_date: req.body.start_date
+        });
+
+        await newAssignment.save();
+
+        res.status(201).json({ message: "Project assignment saved successfully", newAssignment });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 
 export default router;

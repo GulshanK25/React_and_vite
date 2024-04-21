@@ -20,7 +20,7 @@ const Empdata = () => {
                 setEmployeeData(data);
             } catch (error) {
                 console.error('Fetch error:', error);
-                // Handle the error, e.g., display an error message to the user
+                
             }
         };
     

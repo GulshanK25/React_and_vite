@@ -10,9 +10,9 @@ const employeschema = new Schema({
 });
 
 const Projectassignemtschema = new Schema({
-    emp_id: {type: Schema.Types.ObjectId, ref: 'employee' },
-    project_code: { type: Schema.Types.ObjectId, ref: 'Project' },
-    start_date: {type:Date}
+    emp_id: {type: Schema.Types.Number, ref: 'employee' },
+    project_code: { type: Schema.Types.String, ref: 'Project' },
+    start_date: {type:String}
 });
 
 const projectschema = new Schema ({
