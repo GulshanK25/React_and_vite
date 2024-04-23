@@ -1,0 +1,18 @@
+{
+    "project_code": "P6",
+    "project_name": "Project G",
+    "project_description": "Description of Project Gulshan"
+}
+
+{
+    "emp_id": 6,
+    "emp_fullname": "Gulshan Kumar",
+    "emp_email": "Gulshankumar@gmail.com",
+    "emp_hashed_password": "hashed_password_6"
+}
+
+{
+    "emp_id": "1",
+    "project_code": "P1",
+    "start_date": "2024-04-01"
+}

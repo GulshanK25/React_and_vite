@@ -13,7 +13,8 @@ const Empdata = () => {
                     throw new Error('Failed to fetch data');
                 }
                 const data = await response.json();
-                setEmployeeData(data);
+                const newData = data.slice(-5)
+                setEmployeeData(newData);
             } catch (error) {
                 console.error('Fetch error:', error);
             }
