@@ -48,3 +48,17 @@ td {
 tbody tr:hover {
     background-color: darkgoldenrod
 }
+.button {
+    background-color: lightpink;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align:center;
+    text-decoration:double;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+.button:hover {
+    background-color: palevioletred 
+}
