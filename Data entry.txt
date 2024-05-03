@@ -13,6 +13,6 @@
 
 {
     "emp_id": "1",
-    "project_code": "P1",
+    "project_name": "P1",
     "start_date": "2024-04-01"
 }

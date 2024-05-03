@@ -11,7 +11,7 @@ const employeschema = new Schema({
 
 const Projectassignemtschema = new Schema({
     emp_id: {type: Schema.Types.Number, ref: 'employee' },
-    project_code: { type: Schema.Types.String, ref: 'Project' },
+    project_name: { type: Schema.Types.String, ref: 'Project' },
     start_date: {type:String}
 });
 

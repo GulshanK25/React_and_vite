@@ -21,8 +21,8 @@ router.get('/', async (req, res) => {
             {
                 $lookup: {
                     from: "projects",
-                    localField: "project_code",
-                    foreignField: "project_code", 
+                    localField: "project_name",
+                    foreignField: "project_name", 
                     as: "project"
                 }
             },
@@ -97,14 +97,14 @@ router.post('/project_assignments', async (req, res) => {
             return res.status(400).json({ message: "Employee not found" });
         }
 
-        const existingProject = await Project.findOne({ project_code: req.body.project_code });
+        const existingProject = await Project.findOne({ project_name: req.body.project_name });
         if (!existingProject) {
             return res.status(400).json({ message: "Project not found" });
         }
 
         const newAssignment = new Projectassignment({
             emp_id: existingEmployee.emp_id, 
-            project_code: existingProject.project_code,
+            project_name: existingProject.project_name,
             start_date: req.body.start_date
         });
 

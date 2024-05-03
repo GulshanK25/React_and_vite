@@ -57,7 +57,7 @@ const Empdata = () => {
                     <tr>
                         <th onClick={() => handleSort('employee_id')}>ID</th>
                         <th onClick={() => handleSort('employee_name')}>NAME</th>
-                        <th onClick={() => handleSort('project_name')}>PROJECT CODE</th>
+                        <th onClick={() => handleSort('project_name')}>PROJECT NAME</th>
                         <th onClick={() => handleSort('start_date')}>START DATE</th>
                     </tr>
                 </thead>
